@@ -21,10 +21,10 @@ export default function App() {
   useEffect(() => {
     handleTokenPushNotification()
     notificationsReceivedRef.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotificationTitle(notification.request.content.title || '')//console.log('Received: ', notification)
+      setNotificationTitle(notification.request.content.title || '') //console.log('Received: ', notification)
     })
     notificationsResponseRef.current = Notifications.addNotificationResponseReceivedListener(notification => {
-      setNotificationTitle(notification.notification.request.content.title || '')//console.log('Response: ', notification)
+      setNotificationTitle(notification.notification.request.content.title || '') //console.log('Response: ', notification)
     })
   }, [])
 
