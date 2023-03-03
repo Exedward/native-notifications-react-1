@@ -20,6 +20,8 @@ export default function App() {
     }
     let token = (await Notifications.getExpoPushTokenAsync()).data
     console.log(token)
+
+    await Notifications.scheduleNotificationAsync()
   }
 
   return (
