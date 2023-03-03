@@ -14,16 +14,17 @@ Notifications.setNotificationHandler({
 export default function App() {
 
   const [tokenPush, setTokenPush] = useState<string>('')
+  const [notificationTitle, setNotificationTitle] = useState('')
   const notificationsReceivedRef = useRef()
   const notificationsResponseRef = useRef()
 
   useEffect(() => {
     handleTokenPushNotification()
     notificationsReceivedRef.current = Notifications.addNotificationReceivedListener(notification => {
-      console.log('Received: ', notification)
+      setNotificationTitle(notification.request.content.title || '')//console.log('Received: ', notification)
     })
     notificationsResponseRef.current = Notifications.addNotificationResponseReceivedListener(notification => {
-      console.log('Response: ', notification)
+      setNotificationTitle(notification.notification.request.content.title || '')//console.log('Response: ', notification)
     })
   }, [])
 
@@ -53,6 +54,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Token: {tokenPush}</Text>
+      <Text>Title: {notificationTitle}</Text>
       <Button title='Chamar Notifications' onPress={handleCallNotification}/>
       <StatusBar style="auto" />
     </View>
