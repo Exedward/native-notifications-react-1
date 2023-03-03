@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Button, Alert } from 'react-native';
 import * as Notifications from 'expo-notifications'
@@ -14,9 +14,17 @@ Notifications.setNotificationHandler({
 export default function App() {
 
   const [tokenPush, setTokenPush] = useState<string>('')
+  const notificationsReceivedRef = useRef()
+  const notificationsResponseRef = useRef()
 
   useEffect(() => {
     handleTokenPushNotification()
+    notificationsReceivedRef.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log('Received: ', notification)
+    })
+    notificationsResponseRef.current = Notifications.addNotificationResponseReceivedListener(notification => {
+      console.log('Response: ', notification)
+    })
   }, [])
 
   const handleTokenPushNotification = async () => {
